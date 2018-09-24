@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  echo "Usage: `basename $0` host port"
+  exit 255
+fi
+
+HTTP_HOST=$1
+HTTP_PORT=$2
+HTTP_PATH="/"
+
+if [ $# -ge 3 ]; then
+  HTTP_PATH=$3
+fi
+
+echo -ne "GET ${HTTP_PATH} HTTP/1.1\r\nHost: ${HTTP_HOST}\r\n\r\n" | examples/client ${HTTP_HOST} ${HTTP_PORT} -i
