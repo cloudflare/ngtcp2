@@ -1,22 +1,25 @@
 ngtcp2
 ======
 
-"Call it TCP/2.  One More Time."
+This is a copy of the original ngtcp2 project: (https://github.com/ngtcp2/ngtcp2).
 
-ngtcp2 project is an effort to implement QUIC protocol which is now
-being discussed in IETF QUICWG for its standardization.
+It was cloned for the purpose of keeping a fixed snapshot of the ngtcp2
+codebase for use in the Cloudflare QUIC Head Start `blogpost
+<https://blog.cloudflare.com/head-start-with-quic/>`_ and should NOT be used
+for any purpose than following the instructions in the blogpost.
+
+To follow any future work on QUIC and the ngtcp2 project, please refer to the
+original project page.
 
 Development status
 ------------------
 
-Second Implementation Draft
+Fourteenth Implementation Draft
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We are focusing on implementing `8th Implementation Draft
-<https://github.com/quicwg/base-drafts/wiki/8th-Implementation-Draft>`_.
+We are focusing on implementing `14th Implementation Draft
+<https://tools.ietf.org/html/draft-ietf-quic-transport-14>`_.
 
-* https://quicwg.github.io/base-drafts/draft-ietf-quic-transport.html
-* https://quicwg.github.io/base-drafts/draft-ietf-quic-tls.html
 
 Requirements
 ------------
@@ -28,7 +31,9 @@ gcc >= 5.0).
 
 The following packages are required to configure the build system:
 
-* pkg-config >= 0.20
+* gcc or clang
+* make
+* pkg-config
 * autoconf
 * automake
 * autotools-dev
@@ -36,16 +41,18 @@ The following packages are required to configure the build system:
 
 libngtcp2 uses cunit for its unit test frame work:
 
-* cunit >= 2.1
+* cunit
 
-To build sources under the examples directory, libev is required:
+To build sources under the examples directory, a C++ compiler and
+libev is required:
 
-* libev
+* g++ or clang
+* libev-dev
 
-The client and server under examples directory require OpenSSL (master
-branch) as crypto backend:
+The client and server under examples directory require a specific development
+snapshot of OpenSSL (https://github.com/openssl/openssl/) as the Crypto
+backend (see below for the retrieval instructions):
 
-* OpenSSL (https://github.com/openssl/openssl/)
 
 Build from git
 --------------
@@ -59,7 +66,7 @@ Build from git
    $ make -j$(nproc)
    $ make install_sw
    $ cd ..
-   $ git clone https://github.com/ngtcp2/ngtcp2
+   $ git clone -b quic-draft-14 https://github.com/cloudflare/ngtcp2
    $ cd ngtcp2
    $ autoreconf -i
    $ # For Mac users who have installed libev with MacPorts, append
